@@ -3,16 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Graph;
-
-/**
- *
- * @author ACER
- */
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,7 +41,7 @@ public class Graph {
 
     public Vertex getVertex(String v) {
         for (Vertex vertex : vertices) {
-            if (vertex.label.equals(v)) {
+            if (vertex.lable.equals(v)) {
                 return vertex;
             }
         }
@@ -98,8 +92,8 @@ public class Graph {
     public void display() {
         this.vertices.stream().forEach(Vertex
                 -> {
-            System.out.print(Vertex.label + " -> ");
-            Vertex.adjList.entrySet().forEach(entry -> System.out.print("(" + entry.getKey().label + ", " + entry.getValue() + ")"));
+            System.out.print(Vertex.lable + " -> ");
+            Vertex.adjList.entrySet().forEach(entry -> System.out.print("(" + entry.getKey().lable + ", " + entry.getValue() + ")"));
             System.out.println();
         }
         );
@@ -141,19 +135,19 @@ public class Graph {
         ArrayQueue<Vertex> queue = new ArrayQueue<>(1000);
         Set<Vertex> visited = new HashSet<>();
 
-        queue.enQueue(startNode);
+        queue.enqueue(startNode);
         visited.add(startNode);
 
         while (!queue.isEmpty()) {
-            Vertex current = queue.deQueue();
-            System.out.print(current.label + " ");
+            Vertex current = queue.dequeue();
+            System.out.print(current.lable + " ");
 
             current.adjList.entrySet().stream()
-                    .sorted(Map.Entry.comparingByKey((v1, v2) -> v1.label.compareTo(v2.label)))
+                    .sorted(Map.Entry.comparingByKey((v1, v2) -> v1.lable.compareTo(v2.lable)))
                     .forEach(entry -> {
                         Vertex neighbor = entry.getKey();
                         if (!visited.contains(neighbor)) {
-                            queue.enQueue(neighbor);
+                            queue.enqueue(neighbor);
                             visited.add(neighbor);
                         }
                     });
@@ -176,12 +170,12 @@ public class Graph {
         while (!stack.isEmpty()) {
             Vertex current = stack.pop();
             if (!visited.contains(current)) {
-                System.out.print(current.label + " ");
+                System.out.print(current.lable + " ");
                 visited.add(current);
 
                 // Add neighbors to stack in sorted order
                 current.adjList.entrySet().stream()
-                        .sorted(Map.Entry.comparingByKey((v1, v2) -> v2.label.compareTo(v1.label))) // reverse order for stack
+                        .sorted(Map.Entry.comparingByKey((v1, v2) -> v2.lable.compareTo(v1.lable))) // reverse order for stack
                         .forEach(entry -> stack.push(entry.getKey()));
             }
         }
@@ -195,11 +189,11 @@ public class Graph {
         ArrayQueue<Vertex> queue = new ArrayQueue<>(1000);
         ArrayList<Vertex> vistited = new ArrayList<>();
         Vertex startVertext = this.getVertex(start);
-        queue.enQueue(startVertext);
+        queue.enqueue(startVertext);
         distance.put(startVertext, 0);
         previous.put(startVertext, startVertext);
         while (!queue.isEmpty()) {
-            Vertex currentVertex = queue.deQueue();
+            Vertex currentVertex = queue.dequeue();
             //distance.entrySet().stream().forEach(entry -> System.out.println("(" + entry.getKey().lable + ", " + entry.getValue() + ")")); 
             if (!vistited.contains(currentVertex)) {
                 currentVertex.adjList.entrySet().stream().forEach(entry -> {
@@ -209,7 +203,7 @@ public class Graph {
                         previous.put(entry.getKey(), currentVertex);
                     }
                     if (!vistited.contains(entry.getKey())) {
-                        queue.enQueue(entry.getKey());
+                        queue.enqueue(entry.getKey());
                     }
                 });
             }
@@ -217,7 +211,7 @@ public class Graph {
         }
         Vertex destinationVertex = this.getVertex(destination);
         ArrayList<Vertex> path = this.getPath(previous, startVertext, destinationVertex);
-        String p = path.stream().map(vertex -> vertex.label).collect(Collectors.joining(" -> "));
+        String p = path.stream().map(vertex -> vertex.lable).collect(Collectors.joining(" -> "));
         System.out.println(p);
     }
 
@@ -256,7 +250,7 @@ public class Graph {
         while(!priorityQueue.isEmpty()){
             Edge minEdge = priorityQueue.poll();
             if(!visited.contains(minEdge.to)){
-                mst.addEdgeDirection(minEdge.from.label, minEdge.to.label, minEdge.weight);
+                mst.addEdgeDirection(minEdge.from.lable, minEdge.to.lable, minEdge.weight);
                 minEdge.to.adjList.forEach((adjVertex, weight) -> priorityQueue.add(new Edge(minEdge.to, adjVertex, weight)));
             }
             visited.add(minEdge.to);
@@ -271,10 +265,10 @@ public class Graph {
         int oddDegreeCount = 0;
         
         for(Vertex vertex: graph.vertices){
-            startingVertices.add(vertex.label);
+            startingVertices.add(vertex.lable);
             if(vertex.adjList.size() % 2 != 0){
                 oddDegreeCount++;
-                startVerticePath.add(vertex.label);
+                startVerticePath.add(vertex.lable);
             }
         }
         
