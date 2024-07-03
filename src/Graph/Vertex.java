@@ -3,19 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Graph;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  *
- * @author ACER
+ * @author vungu
  */
-import java.util.HashMap;
-import java.util.List;
 public class Vertex {
-    String label;
-    HashMap<Vertex,Integer>adjList;
-    public Vertex(String label) {
-        this.label = label;
-        this.adjList= new HashMap<>();
+    String lable;
+    HashMap<Vertex, Integer> adjList;
+
+    public Vertex(String lable) {
+        this.lable = lable;
+        this.adjList = new HashMap<>();
     }
     
 }
